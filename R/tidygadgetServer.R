@@ -1,6 +1,6 @@
 tidygadgetServer <- function(input, output, session, data = NULL, dataModule = c("GlobalEnv", "ImportFile"), sizeDataModule = "m") {
 
-  ggplotCall <- reactiveValues(code = "")
+  tidyrCall <- reactiveValues(code = "")
 
   observeEvent(data$data, {
     dataChart$data <- data$data
@@ -16,11 +16,7 @@ tidygadgetServer <- function(input, output, session, data = NULL, dataModule = c
     dataModule = dataModule, size = sizeDataModule
   )
   observeEvent(dataChart$data, {
-    # special case: geom_sf
-    if (inherits(dataChart$data, what = "sf")) {
-      geom_possible$x <- c("sf", geom_possible$x)
-    }
-    var_choices <- setdiff(names(dataChart$data), attr(dataChart$data, "sf_column"))
+    var_choices <- names(dataChart$data)
     updateDragulaInput(
       session = session,
       inputId = "dragvars", status = NULL,
@@ -33,27 +29,29 @@ tidygadgetServer <- function(input, output, session, data = NULL, dataModule = c
     )
   })
 
-  # geom_possible <- reactiveValues(x = "auto")
-  # geom_controls <- reactiveValues(x = "auto")
-  # observeEvent(list(input$dragvars$target, input$geom), {
-  #   geoms <- potential_geoms(
-  #     data = dataChart$data,
-  #     mapping = build_aes(
-  #       data = dataChart$data,
-  #       x = input$dragvars$target$xvar,
-  #       y = input$dragvars$target$yvar
-  #     )
-  #   )
-  #   geom_possible$x <- c("auto", geoms)
-  #
-  #   geom_controls$x <- select_geom_controls(input$geom, geoms)
-  #
-  #   if (!is.null(input$dragvars$target$fill) | !is.null(input$dragvars$target$color)) {
-  #     geom_controls$palette <- TRUE
-  #   } else {
-  #     geom_controls$palette <- FALSE
-  #   }
-  # })
+  user_pivot_settings <- reactiveValues()
+  get_settings <- callModule(pivotServer, "pivot_test")
+
+  observe({
+    user_pivot_settings$pivot_type <- get_settings$pivot_type
+    user_pivot_settings$names_column <- get_settings$names_column
+    user_pivot_settings$values_column <- get_settings$values_column
+  })
+
+  output$pivot_test_text <- renderText({
+    paste("Desired pivot is: ", user_pivot_settings$pivot_type,
+          " with cols ", user_pivot_settings$names_column,
+          " and vals ", user_pivot_settings$values_column)
+  })
+
+  # tidyr_call_result <- tidyr_call(
+  #   data = dataChart$name,
+  #   targets_fix = input$dragvars$target[[1]],
+  #   targets_pivot = input$dragvars$target[[2]],
+  #   settings = pivotParams
+  # )
+
+  # tidyrCall$code <- expr_deparse(tidyr_call_result)
 
   observeEvent(input$close, shiny::stopApp())
 
