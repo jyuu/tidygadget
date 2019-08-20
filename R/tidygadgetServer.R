@@ -53,9 +53,15 @@ tidygadgetServer <- function(input, output, session, data = NULL, dataModule = c
       settings = get_settings
     )
 
-    tidyrCall$code <- expr_deparse(tidyr_call_result)
+    tidyrCall$code <- rlang::expr_deparse(tidyr_call_result)
 
     paste0(tidyrCall$code)
+  })
+
+  output$viewer <- DT::renderDataTable({
+    # dataChart$data
+    safe_tidyr_call(expr = tidyrCall$code,
+                     data = dataChart$data)
   })
 
   observeEvent(input$close, shiny::stopApp())

@@ -13,7 +13,7 @@
 #'
 #' @importFrom htmltools tags tagList singleton
 #' @importFrom shiny icon actionButton NS textOutput
-#' @importFrom miniUI miniPage miniTabstripPanel miniTabPanel miniContentPanel
+#' @importFrom miniUI miniPage miniTabstripPanel miniTabPanel miniContentPanel miniTitleBarButton
 #' @importFrom shinyWidgets prettyToggle
 tidygadgetUI <- function(id,
                         container = esquisseContainer(),
