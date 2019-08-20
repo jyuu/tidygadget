@@ -219,14 +219,6 @@ capitalize <- function(x) {
 }
 
 
-dropListColumns <- function(x) {
-  type_col <- vapply(X = x, FUN = typeof, FUN.VALUE = character(1), USE.NAMES = FALSE)
-  x[, type_col != "list", drop = FALSE]
-}
-
-
-
-
 
 
 

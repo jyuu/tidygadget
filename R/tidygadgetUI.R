@@ -1,6 +1,22 @@
+#' Tidygadget Shiny module.
+#'
+#' @param id Module id.
+#' @param container Defaults to using the `esquisse` container as the
+#'   addin display.
+#' @param insert_code Logical. Displays a button to insert `tidyr` code
+#'   in the current user script. Defaults to `TRUE`.
+#'
+#' @return Reactive values with 2 slots containing the code to generate
+#'   the pivot table result and the resulting dataframe.
+#'
+#' @export
+#'
+#' @importFrom htmltools tags tagList singleton
+#' @importFrom shiny icon actionButton NS textOutput
+#' @importFrom miniUI miniPage miniTabstripPanel miniTabPanel miniContentPanel
+#' @importFrom shinyWidgets prettyToggle
 tidygadgetUI <- function(id,
                         container = esquisseContainer(),
-                        choose_data = TRUE,
                         insert_code = FALSE) {
   ns <- NS(id)
 
@@ -11,12 +27,12 @@ tidygadgetUI <- function(id,
       class = "pull-right",
       miniTitleBarButton(inputId = ns("close"), label = "Close")
     ),
-    if (isTRUE(choose_data)) {
+
       tags$div(
         class = "pull-left",
         chooseDataUI(id = ns("choose-data"), class = "btn-primary")
       )
-    }
+
   )
 
   addin <- miniPage(
@@ -59,7 +75,7 @@ tidygadgetUI <- function(id,
       # export code
       miniTabPanel("Export", icon = icon("laptop-code"),
         miniContentPanel(
-          textOutput("code")
+          # nothing yet
         )
       )
     ) # end of miniTabstripPanel
