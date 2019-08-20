@@ -62,7 +62,8 @@ tidygadgetUI <- function(id,
             height = "50%",
             replace = FALSE
          ),
-         pivotUI(ns("pivot_test"))
+         pivotUI(ns("pivot_test")),
+         textOutput(ns("pivot_test_text"))
        )
       ),
 
