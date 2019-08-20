@@ -1,3 +1,6 @@
+#' @importFrom shinyWidgets prettyRadioButtons
+#' @importFrom htmltools tags tagList
+#' @importFrom shiny NS textInput
 pivotUI <- function(id) {
   ns <- NS(id)
 
@@ -14,22 +17,23 @@ pivotUI <- function(id) {
     textInput(
       inputId = ns("names_col"),
       label = "Names to: ",
-      value = "",
       width = "100%"
     ),
 
     textInput(
       inputId = ns("values_col"),
       label = "Values to: ",
-      value = "",
       width = "100%"
     )
   )
 }
 
+#' @importFrom shiny reactiveValues observe updateTextInput
 pivotServer <- function(input, output, session) {
 
-  observeEvent(input$pivot_type, {
+  settings <- reactiveValues()
+
+  observe({
     ns <- session$ns
 
     if (input$pivot_type == "longer") {
@@ -51,12 +55,10 @@ pivotServer <- function(input, output, session) {
       inputId = "values_col",
       label = values_call
     )
-  })
 
-  settings <- reactiveValues({
-    type = input$pivot_type
-    names_column = input$names_col
-    values_column = input$values_col
+    settings$pivot_type <- input$pivot_type
+    settings$names_column <- input$names_col
+    settings$values_column <- input$values_col
   })
 
   return(settings)
