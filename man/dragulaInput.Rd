@@ -77,7 +77,7 @@ ui <- fluidPage(
 
 
 server <- function(input, output, session) {
-  
+
   output$result <- renderPrint(str(input$dad))
 
 }
