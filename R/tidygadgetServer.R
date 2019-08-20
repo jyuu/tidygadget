@@ -1,7 +1,5 @@
 tidygadgetServer <- function(input, output, session, data = NULL, dataModule = c("GlobalEnv", "ImportFile"), sizeDataModule = "m") {
 
-  tidyrCall <- reactiveValues(code = "")
-
   observeEvent(data$data, {
     dataChart$data <- data$data
     dataChart$name <- data$name
@@ -44,14 +42,21 @@ tidygadgetServer <- function(input, output, session, data = NULL, dataModule = c
           " and vals ", user_pivot_settings$values_column)
   })
 
-  # tidyr_call_result <- tidyr_call(
-  #   data = dataChart$name,
-  #   targets_fix = input$dragvars$target[[1]],
-  #   targets_pivot = input$dragvars$target[[2]],
-  #   settings = pivotParams
-  # )
+  tidyrCall <- reactiveValues(code = "")
 
-  # tidyrCall$code <- expr_deparse(tidyr_call_result)
+
+  output$tidyr_code <- renderText({
+    tidyr_call_result <- tidyr_call(
+      data = dataChart$name,
+      targets_fix = input$dragvars$target[[1]],
+      targets_pivot = input$dragvars$target[[2]],
+      settings = get_settings
+    )
+
+    tidyrCall$code <- expr_deparse(tidyr_call_result)
+
+    paste0(tidyrCall$code)
+  })
 
   observeEvent(input$close, shiny::stopApp())
 
