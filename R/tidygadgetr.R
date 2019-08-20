@@ -26,6 +26,6 @@ tidygadgetr <- function(data = NULL) {
         data = rv
       )
     },
-    viewer = dialogViewer("Tidy gadget", width = 700, height = 750)
+    viewer = dialogViewer("Tidy gadget", width = 700, height = 800)
   )
 }
