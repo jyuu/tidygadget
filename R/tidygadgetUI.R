@@ -54,14 +54,15 @@ tidygadgetUI <- function(id,
           dragulaInput(
             inputId = ns("dragvars"),
             sourceLabel = "Variables",
-            targetsLabels = c("X", "Y"),
-            targetsIds = c("xvar", "yvar"),
+            targetsLabels = c("Fixed Variables", "Pivot Variables"),
+            targetsIds = c("fvar", "pvar"),
             choices = "",
             badge = FALSE,
             width = "100%",
             height = "50%",
-            replace = TRUE
-         )
+            replace = FALSE
+         ),
+         pivotUI(ns("pivot_test"))
        )
       ),
 
