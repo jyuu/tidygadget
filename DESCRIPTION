@@ -23,6 +23,7 @@ Imports:
     stringi,
     rlang (>= 0.3.1),
     DT,
-    tidyr
+    tidyr,
+    tools
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
