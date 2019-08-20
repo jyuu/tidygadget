@@ -13,3 +13,13 @@ Encoding: UTF-8
 LazyData: true
 URL: https://github.com/jyuu/tidygadget
 BugReports: https://github.com/jyuu/tidygadget/issues
+Imports: 
+    rstudioapi,
+    miniUI,
+    shiny (>= 1.0.0),
+    htmltools,
+    jsonlite,
+    shinyWidgets (>= 0.4.1),
+    stringi,
+    rlang (>= 0.3.1),
+    DT
