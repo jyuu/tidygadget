@@ -1,4 +1,4 @@
-#' @importFrom rlang syms sym
+#' @importFrom rlang syms sym is_string
 tidyr_call <- function(data = NULL,
                        targets_fix = NULL,
                        targets_pivot = NULL,
@@ -7,13 +7,12 @@ tidyr_call <- function(data = NULL,
     return("")
   }
 
-  data <- sym(data)
 
   targets_fix <- dropNulls(targets_fix)
   targets_pivot <- dropNulls(targets_pivot)
 
   cols <- expr(-c(!!!syms(targets_fix)))
-  if (settings$type == "longer") {
+  if (settings$pivot_type == "longer") {
     settings <- syms(settings)
     call <- expr(
       pivot_longer(
