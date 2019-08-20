@@ -1,13 +1,13 @@
 Package: tidygadget
-Title: What the Package Does (One Line, Title Case)
+Title: Pivot helper addin
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Joyce",
+           family = "Cahoon",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+           email = "joyceyu48@gmail.com",
+           comment = c(ORCID = "0000-0001-7217-4702"))
+Description: A RStudio addin to aid in visualizing the result of pivot_longer and pivot_wider.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -25,3 +25,4 @@ Imports:
     DT,
     tidyr
 Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.1.1
