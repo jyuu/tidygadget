@@ -77,7 +77,7 @@ tidygadgetUI <- function(id,
       # export code
       miniTabPanel("Export", icon = icon("laptop-code"),
         miniContentPanel(
-          # nothing yet
+          textOutput(ns("tidyr_code"))
         )
       )
     ) # end of miniTabstripPanel
